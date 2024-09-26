@@ -4,12 +4,14 @@ import { Prisma, PrismaClient } from '@prisma/client'
 import { UserProps } from './types'
 const prisma = new PrismaClient()
 
-export async function createUser({name_conductor, name_dog, age_dog} : UserProps) {
+export async function createUser({name_conductor, name_dog, age_dog, instituition, sex_dog} : UserProps) {
     const user = await prisma.user.create({
         data: {
           name_conductor: name_conductor,
           name_dog: name_dog,
           age_dog: age_dog,
+          institution: instituition,
+          sex_dog: sex_dog,
         },
     })
     await prisma.$disconnect()

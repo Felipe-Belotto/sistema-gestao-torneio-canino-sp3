@@ -10,9 +10,11 @@ generator client {
 
 model User {
     id             String   @id @default(uuid()) 
+    institution    String   
     name_conductor String   
     name_dog       String  
     age_dog        Int      
+    sex_dog       String  
     punctuation    Float?   
     test_time      DateTime? 
     loss_points    Json?
