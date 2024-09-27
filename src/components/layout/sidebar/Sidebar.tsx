@@ -59,7 +59,7 @@ export default function Sidebar() {
           <NavItem icon={<HomeIcon />} title="Inicio" />
           <NavItem icon={<RankingIcon />} title="Ranking" />
           <NavItem icon={<DogIcon />} title="Participantes" />
-          <NavItem icon={<ExamIcon />} title="Provas" />
+
           <hr className="w-full h-[1px] opacity-50" />
 
           <button onClick={() => setIsDialogOpen(true)}>

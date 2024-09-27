@@ -14,5 +14,8 @@ model User {
     name_conductor String   
     name_dog       String  
     age_dog        Int      
-    sex_dog       String  
+    sex_dog       String
+    test_time     String
+    pontuation    Int    
 }
+

@@ -28,9 +28,6 @@ function page() {
             <p className='font-semibold text-xl'>Cidade</p>
             <p>{user.institution}</p>
           </div>
-
-          
-
           <Link href={`update/${user.id}`} className='px-4 py-2 h-fit w-fit bg-yellow-500 cursor-pointer ml-auto '>
             Editar
           </Link>

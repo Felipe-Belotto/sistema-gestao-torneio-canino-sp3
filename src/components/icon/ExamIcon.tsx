@@ -3,27 +3,16 @@ import React from "react";
 export default function ExamIcon() {
   return (
     <svg
-      width="31"
-      height="24"
-      viewBox="0 0 31 24"
+      width="18"
+      height="20"
+      viewBox="0 0 18 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_36_105)">
-        <path
-          d="M22 3H8C6.9 3 6 3.9 6 5V19C6 20.1 6.9 21 8 21H22C23.1 21 24 20.1 24 19V5C24 3.9 23.1 3 22 3ZM22 19H8V5H22V19Z"
-          fill="white"
-        />
-        <path d="M12 12H10V17H12V12Z" fill="white" />
-        <path d="M20 7H18V17H20V7Z" fill="white" />
-        <path d="M16 14H14V17H16V14Z" fill="white" />
-        <path d="M16 10H14V12H16V10Z" fill="white" />
-      </g>
-      <defs>
-        <clipPath id="clip0_36_105">
-          <rect width="24" height="24" fill="white" transform="translate(3)" />
-        </clipPath>
-      </defs>
+      <path
+        d="M4 14H11V16H4V14ZM4 10H14V12H4V10ZM4 6H14V8H4V6ZM16 2H11.82C11.4 0.84 10.3 0 9 0C7.7 0 6.6 0.84 6.18 2H2C1.86 2 1.73 2.01 1.6 2.04C1.21 2.12 0.86 2.32 0.59 2.59C0.41 2.77 0.26 2.99 0.16 3.23C0.0600001 3.46 0 3.72 0 4V18C0 18.27 0.0600001 18.54 0.16 18.78C0.26 19.02 0.41 19.23 0.59 19.42C0.86 19.69 1.21 19.89 1.6 19.97C1.73 19.99 1.86 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM9 1.75C9.41 1.75 9.75 2.09 9.75 2.5C9.75 2.91 9.41 3.25 9 3.25C8.59 3.25 8.25 2.91 8.25 2.5C8.25 2.09 8.59 1.75 9 1.75ZM16 18H2V4H16V18Z"
+        fill="CurrentColor"
+      />
     </svg>
   );
 }
