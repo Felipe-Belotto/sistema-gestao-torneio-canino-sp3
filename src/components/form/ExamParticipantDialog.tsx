@@ -67,6 +67,20 @@ export default function ExamParticipantDialog({ data }: ExamParticipantProps) {
     }));
   };
 
+  const handleMinuteChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d{0,2}$/.test(value)) {
+      setMinutes(Number(value));
+    }
+  };
+
+  const handleSecondChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d{0,2}$/.test(value)) {
+      setSeconds(Number(value));
+    }
+  };
+
   const handleTimeChange = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -149,9 +163,7 @@ export default function ExamParticipantDialog({ data }: ExamParticipantProps) {
                         id="minutes"
                         placeholder="MM"
                         value={minutes}
-                        onChange={(e) => {
-                          setMinutes(Number(e.target.value));
-                        }}
+                        onChange={handleMinuteChange}
                         className="bg-[#02132f] text-primary border-gray-600 text-center"
                       />
                     </div>
@@ -164,12 +176,9 @@ export default function ExamParticipantDialog({ data }: ExamParticipantProps) {
                       </Label>
                       <Input
                         id="seconds"
-                        type="text"
                         placeholder="SS"
                         value={seconds}
-                        onChange={(e) => {
-                          setSeconds(Number(e.target.value));
-                        }}
+                        onChange={handleSecondChange}
                         className="bg-[#02132f] text-primary border-gray-600 text-center"
                       />
                     </div>
