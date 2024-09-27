@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     site: "@exemplo",
     title: "3º Torneio de Cães de Polícia do Interior Paulista",
     description: "Um evento que celebra as habilidades de cães de polícia.",
-    image: "/images/banner.png",
   },
 };
 
