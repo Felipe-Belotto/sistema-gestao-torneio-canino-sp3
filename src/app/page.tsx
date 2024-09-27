@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAdmin } from "@/hook/useAdmin";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import HomeSection from "@/components/layout/home/HomeSection";
+import HomeSection from "@/components/layout/HomeSection";
 import RankingSection from "@/components/layout/ranking/RankingSection";
 import ParticipantsSection from "@/components/layout/participants/ParticipantsSection";
 import SignInComponent from "@/components/layout/SignInComponent";
