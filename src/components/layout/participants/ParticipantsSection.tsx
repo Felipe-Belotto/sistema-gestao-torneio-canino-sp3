@@ -1,4 +1,5 @@
 "use client";
+<<<<<<< Updated upstream
 import type React from "react";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "@/lib/prisma";
@@ -7,16 +8,33 @@ import DeleteIcon from "@/components/icon/DeleteIcon";
 import EditIcon from "@/components/icon/EditIcon";
 import ExamParticipant from "@/components/form/ExamParticipant";
 import ExamIcon from "@/components/icon/ExamIcon";
+=======
+import UpdateParticipantDialog from "@/components/form/UpdateParticipantDialog";
+import DeleteIcon from "@/components/icon/DeleteIcon";
+import EditIcon from "@/components/icon/EditIcon";
+import ExamIcon from "@/components/icon/ExamIcon";
+import { getAllUsers } from "@/lib/prisma";
+import type { User } from "@prisma/client";
+import { id } from "date-fns/locale";
+import React, { useEffect, useState } from "react";
+>>>>>>> Stashed changes
 
 export default function ParticipantsSection() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
+<<<<<<< Updated upstream
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+=======
+  const [idDialogOpner, setIdDialogOpener] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+>>>>>>> Stashed changes
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setIsLoading(true);
         const usersData = await getAllUsers();
         setUsers(usersData);
       } catch (error) {
@@ -26,12 +44,15 @@ export default function ParticipantsSection() {
           setError("An unknown error occurred.");
         }
         console.error(error);
+      }finally{
+        setIsLoading(false);
       }
     };
 
     fetchUsers();
   }, []);
 
+<<<<<<< Updated upstream
   const handleEditClick = (user: User) => {
     setSelectedUser(user);
     setIsDialogOpen(true);
@@ -39,11 +60,16 @@ export default function ParticipantsSection() {
 
   if (users.length === 0) {
     return <p className="text-center">Loading...</p>;
+=======
+  function editDialog(id: string) {
+    setIdDialogOpener(id)
+    setIsDialogOpen(true)
+>>>>>>> Stashed changes
   }
 
   return (
     <div className="p-5 bg-white rounded-lg">
-      {error ? (
+      {isLoading ? (<h4>Carregando...</h4>) :  error ?  (
         <p className="text-red-600 text-center">{error}</p>
       ) : (
         <>
@@ -89,6 +115,7 @@ export default function ParticipantsSection() {
                     >
                       Avaliar <ExamIcon />
                     </button>
+<<<<<<< Updated upstream
                   </TableTd>
                   <TableTd>
                     <div className="flex opacity-80 hover:opacity-100">
@@ -108,12 +135,33 @@ export default function ParticipantsSection() {
                       </button>
                     </div>
                   </TableTd>
+=======
+                  </td>
+                  <td className="text-left px-8 py-3 border-b border-gray-200  ">
+                    <button
+                      onClick={() => editDialog(user.id)}
+                      className="text-yellow-500 hover:text-yellow-700 mx-6"
+                      aria-label="Edit"
+                    >
+                      <EditIcon />
+                    </button>
+
+                    <button
+                      onClick={() => console.log("delete")}
+                      className="text-red-500 hover:text-red-700"
+                      aria-label="Delete"
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </td>
+>>>>>>> Stashed changes
                 </tr>
               ))}
             </tbody>
           </table>
         </>
       )}
+<<<<<<< Updated upstream
       {selectedUser && (
         <ExamParticipant
           isOpen={isDialogOpen}
@@ -133,6 +181,13 @@ export default function ParticipantsSection() {
           }}
         />
       )}
+=======
+      <UpdateParticipantDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        id={idDialogOpner}
+      />
+>>>>>>> Stashed changes
     </div>
   );
 }

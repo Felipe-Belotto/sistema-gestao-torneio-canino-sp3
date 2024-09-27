@@ -14,6 +14,11 @@ export interface CreateParticipantDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
+export interface UpdateParticipantDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  id : string
+}
 
 export interface RadioSexProps {
   sex_dog: string;
