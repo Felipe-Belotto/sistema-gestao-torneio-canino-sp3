@@ -27,7 +27,7 @@ export default function NavItem({ icon, title }: NavItemProps) {
   }
 
   return (
-    <Link href={`?active=${title}`} className={navItemClasses}>
+    <Link href={`/?active=${title}`} className={navItemClasses}>
       {icon}
       <span>{title}</span>
     </Link>
