@@ -1,10 +1,9 @@
-import { UserProps } from "@/lib/types";
+import { RadioSexProps, UserProps } from "@/lib/types";
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import type React from "react";
 
-interface RadioSexProps {
-  sex_dog: string;
-  handleChange: React.ChangeEventHandler<HTMLInputElement>;
-}
+
 
 export const RadioSex: React.FC<RadioSexProps> = ({
   sex_dog,
@@ -12,10 +11,9 @@ export const RadioSex: React.FC<RadioSexProps> = ({
 }) => {
   return (
     <div className="flex gap-2 flex-col">
-      {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
       <label>Sexo do Cachorro:</label>
       <div className="flex items-center gap-4">
-        <label htmlFor="macho">
+        <label htmlFor="macho" className="cursor-pointer flex gap-2">
           <input
             type="radio"
             id="macho"
@@ -28,7 +26,7 @@ export const RadioSex: React.FC<RadioSexProps> = ({
           Macho
         </label>
 
-        <label htmlFor="femea">
+        <label htmlFor="femea" className="cursor-pointer flex gap-2">
           <input
             type="radio"
             id="femea"

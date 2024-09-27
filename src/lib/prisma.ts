@@ -2,6 +2,7 @@
 
 import { type Prisma, PrismaClient } from "@prisma/client";
 import type { UserProps } from "./types";
+import { te } from "date-fns/locale";
 const prisma = new PrismaClient();
 
 export async function createUser({
@@ -10,6 +11,8 @@ export async function createUser({
   age_dog,
   institution,
   sex_dog,
+  pontuation,
+  test_time
 }: UserProps) {
   const user = await prisma.user.create({
     data: {
@@ -18,6 +21,8 @@ export async function createUser({
       name_dog: name_dog,
       age_dog: age_dog,
       sex_dog: sex_dog,
+      test_time: test_time,
+      pontuation: pontuation,
     },
   });
   await prisma.$disconnect();
