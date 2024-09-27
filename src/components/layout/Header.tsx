@@ -1,17 +1,18 @@
 "use client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import HomeIcon from "../icon/HomeIcon";
 import RankingIcon from "../icon/RankingIcon";
-import DogIcon from "../icon/DogIcon";
+
 import NavItem from "./sidebar/NavItem";
 import { useBreakpoint } from "@/hook/useBreakpoint";
 
 export default function Header() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [loading, setLoading] = useState(true);
   const breakpoint = useBreakpoint();
 
   useEffect(() => {
@@ -25,6 +26,11 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) return null;
   if (breakpoint === "desktop" || breakpoint === "small-laptop") return null;
 
   return (

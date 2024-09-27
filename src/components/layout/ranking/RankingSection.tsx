@@ -67,10 +67,13 @@ export default function RankingSection() {
                   key={user.id}
                   className="bg-tertiary text-white rounded-lg p-4 shadow-md"
                 >
-                  <p className="text-lg font-bold">
-                    {index + 1} - {user.name_dog}
+                  <p className="text-lg font-bold flex items-center gap-2">
+                    <span>{index + 1}°</span>
+                    <span className="font-bold text-2xl text-secundary">
+                      {user.name_dog}
+                    </span>
                   </p>
-                  <ul className="list-disc pl-4 mt-2 flex flex-col gap-4 text-sm">
+                  <ul className="list-none pl-4 mt-2 flex flex-col gap-4 text-sm">
                     <div className="flex justify-between">
                       <li>Pontuação: {user.pontuation}</li>
                       <li>Tempo: {user.test_time}</li>
