@@ -22,51 +22,68 @@ export default function RankingSection() {
         <p className="text-red-600 text-center">{error}</p>
       ) : (
         <>
-          <div className="bg-primary px-6 rounded-md flex justify-between items-center gap-3 flex-1 h-[100px]">
-            <h4 className="text-secundary text-[32px]">Ranking</h4>
-            <p className="text-[48px] text-white">Faro de drogas</p>
+          <div className="bg-primary px-6 rounded-md flex justify-between items-center gap-3 flex-1 h-[100px] w-[calc(100vw-48px)] lg:w-full">
+            <h4 className="text-secundary lg:text-[32px]">Ranking</h4>
+            <p className="lg:text-[48px] text-white">Faro de drogas</p>
           </div>
-          <table className="2xl:w-[1130px] mx-auto shadow-md rounded-lg mt-14">
-            <caption className="sr-only">Ranking Data</caption>
-            <thead>
-              <tr className="bg-primary text-white uppercase text-sm">
-                <th className="text-left px-4 py-3 rounded-tl-md">Colocação</th>
-                <th className="text-left px-1 py-3 ">Pontuação</th>
-                <th className="text-left px-8 py-3">Tempo</th>
-                {breakpoint === "desktop" && (
-                  <>
-                    <th className="text-left px-8 py-3">Instituição</th>
-                    <th className="text-left px-8 py-3">Condutor</th>
-                  </>
-                )}
-                <th className="text-left px-8 py-3">Nome</th>
-                <th className="text-left px-4 py-3">Idade</th>
-                <th className="text-left px-8 py-3 rounded-tr-md">Sexo</th>
-              </tr>
-            </thead>
-            <tbody className="h-full">
-              {sortedUsers.map((user, index) => (
-                <tr
-                  key={user.id}
-                  className="hover:bg-gray-100 text-base max-h-12"
-                >
-                  <TableTd text={index + 1} />
-                  <TableTd text={user.pontuation} />
-                  <TableTd text={user.test_time} />
-                  {breakpoint === "desktop" && (
-                    <>
-                      <TableTd text={user.institution} />
-                      <TableTd text={user.name_conductor} />
-                    </>
-                  )}
 
-                  <TableTd text={user.name_dog} />
-                  <TableTd text={user.age_dog} />
-                  <TableTd text={user.sex_dog} />
-                </tr>
+          <div className="flex flex-col mt-14">
+            {/* Table for desktop */}
+            <div className="hidden lg:block">
+              <table className="2xl:w-[1130px] mx-auto shadow-md rounded-lg mt-14">
+                <caption className="sr-only">Ranking Data</caption>
+                <thead>
+                  <tr className="bg-primary text-white uppercase text-sm">
+                    <th className="text-left px-4 py-3 rounded-tl-md">
+                      Colocação
+                    </th>
+                    <th className="text-left px-8 py-3">Nome</th>
+                    <th className="text-left px-1 py-3">Pontuação</th>
+                    <th className="text-left px-8 py-3">Tempo</th>
+                    <th className="text-left px-4 py-3 rounded-tr-md">Idade</th>
+                  </tr>
+                </thead>
+                <tbody className="h-full">
+                  {sortedUsers.map((user, index) => (
+                    <tr
+                      key={user.id}
+                      className="hover:bg-gray-100 text-base max-h-12"
+                    >
+                      <TableTd text={index + 1} />
+                      <TableTd text={user.name_dog} />
+                      <TableTd text={user.pontuation} />
+                      <TableTd text={user.test_time} />
+                      <TableTd text={user.age_dog} />
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Cards for mobile */}
+            <div className="lg:hidden grid gap-4">
+              {sortedUsers.map((user, index) => (
+                <div
+                  key={user.id}
+                  className="bg-primary text-white rounded-lg p-4 shadow-md"
+                >
+                  <p className="text-lg font-bold">
+                    {index + 1} - {user.name_dog}
+                  </p>
+                  <ul className="list-disc pl-4 mt-2 space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <li>Pontuação: {user.pontuation}</li>
+                      <li>Tempo: {user.test_time}</li>
+                    </div>
+                    <div className="flex justify-between">
+                      <li>Idade: {user.age_dog}</li>
+                      <li>Condutor: {user.name_conductor}</li>
+                    </div>
+                  </ul>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </>
       )}
     </div>

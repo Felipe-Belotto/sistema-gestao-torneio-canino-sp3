@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${inter.variable} font-sans antialiased flex flex-col max-h-screen overflow-hidden text-primary w-full h-full`}
+        className={`${inter.variable} font-sans antialiased flex flex-col  text-primary w-full h-full`}
       >
         <Providers>
           <Suspense fallback={<div>Loading...</div>}>
