@@ -14,7 +14,7 @@ export default function NavItem({ icon, title }: NavItemProps) {
   if (title === "Sair" || title === "Criar participante") {
     return (
       <div
-        className={`flex items-center gap-4 w-[238px] h-[43px] pl-3 rounded-l-xl cursor-pointer ${
+        className={`flex items-center gap-4 w-[238px] h-[43px] pl-3 rounded-full cursor-pointer ${
           isActive ? "bg-tertiary" : "hover:bg-tertiary/[.5]"
         }`}
       >
@@ -27,7 +27,7 @@ export default function NavItem({ icon, title }: NavItemProps) {
   return (
     <Link
       href={`?active=${title}`}
-      className={`flex items-center gap-4 w-[238px] h-[43px] pl-3 rounded-l-xl  ${
+      className={`flex items-center gap-4 w-[200px] h-[43px] pl-3 rounded-full  ${
         isActive ? "bg-tertiary" : "hover:bg-tertiary/[.5]"
       }`}
     >
