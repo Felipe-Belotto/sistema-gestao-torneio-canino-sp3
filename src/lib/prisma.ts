@@ -1,10 +1,16 @@
-'use server'
+"use server";
 
-import { Prisma, PrismaClient } from '@prisma/client'
-import { UserProps } from './types'
-const prisma = new PrismaClient()
+import { type Prisma, PrismaClient } from "@prisma/client";
+import type { UserProps } from "./types";
+const prisma = new PrismaClient();
 
-export async function createUser({ name_conductor, name_dog, age_dog, institution, sex_dog }: UserProps) {
+export async function createUser({
+  name_conductor,
+  name_dog,
+  age_dog,
+  institution,
+  sex_dog,
+}: UserProps) {
   const user = await prisma.user.create({
     data: {
       institution: institution,
@@ -13,25 +19,25 @@ export async function createUser({ name_conductor, name_dog, age_dog, institutio
       age_dog: age_dog,
       sex_dog: sex_dog,
     },
-  })
-  await prisma.$disconnect()
+  });
+  await prisma.$disconnect();
 }
 
 export async function deleteUser(id: string) {
   await prisma.user.delete({
     where: { id },
-  })
-  await prisma.$disconnect()
+  });
+  await prisma.$disconnect();
 }
 export async function getAllUsers() {
   try {
-    const users = await prisma.user.findMany()
-    console.log(users)
-    return users
+    const users = await prisma.user.findMany();
+    console.log(users);
+    return users;
   } catch (error) {
-    throw new Error('Não foi possível encontrar todos os usuários.');
+    throw new Error("Não foi possível encontrar todos os usuários.");
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -39,13 +45,12 @@ export async function getUserById(id: string) {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
-    })
-    return user
+    });
+    return user;
   } catch (error) {
-    throw new Error('Não foi possível encontrar o usuário com esse ID.');
-
+    throw new Error("Não foi possível encontrar o usuário com esse ID.");
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
@@ -53,13 +58,13 @@ export async function updateUser(id: string, data: UserProps) {
   try {
     const updatedUser = await prisma.user.update({
       where: { id },
-      data: data as Prisma.UserUpdateInput
-    })
+      data: data as Prisma.UserUpdateInput,
+    });
 
-    return updatedUser
+    return updatedUser;
   } catch (error) {
-    throw new Error('Não foi possível atualizar o usuário.');
+    throw new Error("Não foi possível atualizar o usuário.");
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

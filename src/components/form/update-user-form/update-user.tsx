@@ -1,22 +1,22 @@
-'use client'
-import { createUser, getAllUsers, getUserById, updateUser } from '@/lib/prisma';
-import { UserProps } from '@/lib/types';
-import React, { useEffect, useState } from 'react'
-import { RadioSex } from '../create-user-form/radio-sex';
-import { redirect, useRouter } from 'next/navigation';
+"use client";
+import { getUserById, updateUser } from "@/lib/prisma";
+import type { UserProps } from "@/lib/types";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { RadioSex } from "../create-user-form/radio-sex";
 
 const initialForm = {
-  name_conductor: '',
-  name_dog: '',
+  name_conductor: "",
+  name_dog: "",
   age_dog: 0,
-  institution: '',
-  sex_dog: '',
-}
+  institution: "",
+  sex_dog: "",
+};
 
-function UpdateUserForm({ id }: { id: string }) {
-  const router = useRouter()
+export function UpdateUserForm({ id }: { id: string }) {
+  const router = useRouter();
   const [formData, setFormData] = useState<UserProps>(initialForm);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     findUser(id);
@@ -30,8 +30,8 @@ function UpdateUserForm({ id }: { id: string }) {
       setLoading(false);
       return user;
     } catch (error) {
-      console.error('Failed to find user:', error);
-      throw new Error('Failed to find user');
+      console.error("Failed to find user:", error);
+      throw new Error("Failed to find user");
     }
   }
 
@@ -39,7 +39,7 @@ function UpdateUserForm({ id }: { id: string }) {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'age_dog' ? Number(value) : value,
+      [name]: name === "age_dog" ? Number(value) : value,
     });
   };
 
@@ -47,23 +47,23 @@ function UpdateUserForm({ id }: { id: string }) {
     e.preventDefault();
     try {
       await updateUser(id, formData);
-      router.push('/update')
+      router.push("/update");
     } catch (error) {
-      console.error('Failed to update user:', error);
-      throw new Error('Failed to update user');
+      console.error("Failed to update user:", error);
+      throw new Error("Failed to update user");
     }
   };
 
   if (loading) {
-    return <div>Carregando...</div>; 
+    return <div>Carregando...</div>;
   }
 
   return (
-    <div className='w-full flex flex-col items-center'>
-      <h1 className='mb-4 text-xl'>Atualizar dados</h1>
+    <div className="w-full flex flex-col items-center">
+      <h1 className="mb-4 text-xl">Atualizar dados</h1>
 
-      <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
-        <div className='flex flex-col gap-2'>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <label htmlFor="institution">Instituição/Cidade</label>
           <input
             type="text"
@@ -72,10 +72,10 @@ function UpdateUserForm({ id }: { id: string }) {
             value={formData.institution}
             onChange={handleInputFormChange}
             required
-            className='outline rounded-lg px-4'
+            className="outline rounded-lg px-4"
           />
         </div>
-        <div className='flex flex-col gap-2'>
+        <div className="flex flex-col gap-2">
           <label htmlFor="name_conductor">Nome do Condutor:</label>
           <input
             type="text"
@@ -84,10 +84,10 @@ function UpdateUserForm({ id }: { id: string }) {
             value={formData.name_conductor}
             onChange={handleInputFormChange}
             required
-            className='outline rounded-lg px-4'
+            className="outline rounded-lg px-4"
           />
         </div>
-        <div className='flex flex-col gap-2'>
+        <div className="flex flex-col gap-2">
           <label htmlFor="name_dog">Nome do Cachorro:</label>
           <input
             type="text"
@@ -96,10 +96,10 @@ function UpdateUserForm({ id }: { id: string }) {
             value={formData.name_dog}
             onChange={handleInputFormChange}
             required
-            className='outline rounded-lg px-4'
+            className="outline rounded-lg px-4"
           />
         </div>
-        <div className='flex flex-col gap-2'>
+        <div className="flex flex-col gap-2">
           <label htmlFor="age_dog">Idade do Cachorro:</label>
           <input
             type="number"
@@ -108,16 +108,19 @@ function UpdateUserForm({ id }: { id: string }) {
             value={formData.age_dog}
             onChange={handleInputFormChange}
             required
-            className='outline rounded-lg px-4 '
+            className="outline rounded-lg px-4 "
           />
         </div>
 
-        <RadioSex sex_dog={formData.sex_dog} handleChange={handleInputFormChange} />
+        <RadioSex
+          sex_dog={formData.sex_dog}
+          handleChange={handleInputFormChange}
+        />
 
-        <button type="submit" className='p-4 py-2 rounded-lg bg-green-400 w-60'>Atualizar dados</button>
+        <button type="submit" className="p-4 py-2 rounded-lg bg-green-400 w-60">
+          Atualizar dados
+        </button>
       </form>
     </div>
   );
 }
-
-export default UpdateUserForm;

@@ -3,7 +3,7 @@ import AddIcon from "@/components/icon/AddIcon";
 import ExitIcon from "@/components/icon/ExitIcon";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DogIcon from "../../icon/DogIcon";
@@ -11,7 +11,8 @@ import ExamIcon from "../../icon/ExamIcon";
 import HomeIcon from "../../icon/HomeIcon";
 import RankingIcon from "../../icon/RankingIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import CreateParticipantDialog from "./CreateParticipantDialog";
+
+import CreateParticipantDialog from "@/components/form/CreateParticipantDialog";
 import NavItem from "./NavItem";
 
 export default function Sidebar() {
@@ -29,6 +30,8 @@ export default function Sidebar() {
       clearInterval(timer);
     };
   }, []);
+
+  if (!session) return null;
 
   return (
     <nav className="w-[262px] bg-primary h-screen py-6 pl-6 flex flex-col">
@@ -69,7 +72,13 @@ export default function Sidebar() {
         <div className="w-full flex justify-center bg-[#010f24] text-[20px] py-4 rounded-md">
           {currentTime && format(currentTime, "HH:mm:ss", { locale: ptBR })}
         </div>
-        <NavItem icon={<ExitIcon />} title="Sair" />
+        <button
+          onClick={() => {
+            signOut();
+          }}
+        >
+          <NavItem icon={<ExitIcon />} title="Sair" />
+        </button>
       </div>
 
       <CreateParticipantDialog

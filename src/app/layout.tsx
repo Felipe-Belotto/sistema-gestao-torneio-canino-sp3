@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <Providers>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex max-h-screen overflow-hidden text-primary`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex max-h-screen overflow-hidden text-primary w-full h-full`}
         >
           <Sidebar />
           {children}
