@@ -1,20 +1,24 @@
 "use client";
-
 import SignInComponent from "@/components/layout/SignInComponent";
 import HomeSection from "@/components/layout/home/HomeSection";
 import ParticipantsSection from "@/components/layout/participants/ParticipantsSection";
-
 import RankingSection from "@/components/layout/ranking/RankingSection";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const searchParams = useSearchParams();
   const active = searchParams.get("active");
   const { data: session } = useSession();
+  const router = useRouter();
 
   if (!session) {
     return <SignInComponent />;
+  }
+
+  if (active === null) {
+    router.push("/?active=Inicio");
   }
 
   return (

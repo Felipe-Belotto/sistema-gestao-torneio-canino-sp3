@@ -13,6 +13,7 @@ import RankingIcon from "../../icon/RankingIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
 import CreateParticipantDialog from "@/components/form/CreateParticipantDialog";
+import Link from "next/link";
 import NavItem from "./NavItem";
 
 export default function Sidebar() {
@@ -36,13 +37,15 @@ export default function Sidebar() {
   return (
     <nav className="w-[262px] bg-primary h-screen py-6 pl-6 flex flex-col">
       <div className="flex-grow flex flex-col gap-14">
-        <Image
-          src={"/images/logo.png"}
-          alt="logo do evento"
-          width={213}
-          height={138}
-          className="mr-6"
-        />
+        <Link href={"/"}>
+          <Image
+            src={"/images/logo.png"}
+            alt="logo do evento"
+            width={213}
+            height={138}
+            className="mr-6"
+          />
+        </Link>
         <div className="min-h-[27px]">
           {session && (
             <div className="w-full flex gap-3 pl-4">

@@ -10,11 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createUser } from "@/lib/prisma";
-import { CreateParticipantDialogProps, UserProps } from "@/lib/types";
+import type { CreateParticipantDialogProps, UserProps } from "@/lib/types";
 import type React from "react";
 import { useState } from "react";
-import { RadioSex } from './radio-sex';
-import { Loader2 } from "lucide-react"
+import { RadioSex } from "./radio-sex";
+import { Loader2 } from "lucide-react";
 
 const initialForm = {
   name_conductor: "",
@@ -22,9 +22,9 @@ const initialForm = {
   age_dog: 0,
   institution: "",
   sex_dog: "",
-  pontuation : 0,
-  test_time: '00',
-}
+  pontuation: 0,
+  test_time: "00",
+};
 
 export default function CreateParticipantDialog({
   isOpen,
@@ -45,13 +45,13 @@ export default function CreateParticipantDialog({
     e.preventDefault();
 
     try {
-      setButtonLoading(true)
+      setButtonLoading(true);
       await createUser(formData);
       setFormData(initialForm);
     } catch (error) {
       throw new Error("Failed to create user");
     } finally {
-      setButtonLoading(false)
+      setButtonLoading(false);
     }
   };
 
@@ -125,8 +125,10 @@ export default function CreateParticipantDialog({
                 className="col-span-3 bg-[#02132f] text-primary border-gray-600"
               />
             </div>
-            <RadioSex handleChange={handleInputFormChange} sex_dog={formData.sex_dog} />
-
+            <RadioSex
+              handleChange={handleInputFormChange}
+              sex_dog={formData.sex_dog}
+            />
           </div>
           <DialogFooter className="flex w-full">
             <Button
@@ -134,21 +136,15 @@ export default function CreateParticipantDialog({
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 text-primary"
             >
-              {
-                buttonLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Salvando
-                  </>
-                ) :
-                  (
-                    <>
-                      Salvar participante
-                    </>
-                  )
-              }
+              {buttonLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Salvando
+                </>
+              ) : (
+                <>Salvar participante</>
+              )}
             </Button>
-
           </DialogFooter>
         </form>
       </DialogContent>

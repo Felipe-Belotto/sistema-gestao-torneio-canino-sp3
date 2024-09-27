@@ -1,18 +1,16 @@
-import UpdateUserForm from '@/components/update-user-form/update-user'
-import React, { Suspense } from 'react'
+import { UpdateUserForm } from "@/components/form/update-user";
+import React from "react";
 
-interface Props{
-  params: {id : string}
+interface Props {
+  params: { id: string };
 }
 
-function UpdateId ({params} : Props) {
+function UpdateId({ params }: Props) {
   return (
-    <section className='flex'>
-     
-        <UpdateUserForm id={params.id}/>
-   
+    <section className="flex">
+      <UpdateUserForm id={params.id} />
     </section>
-  )
+  );
 }
 
-export default UpdateId
+export default UpdateId;

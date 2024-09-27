@@ -11,9 +11,9 @@ const initialForm = {
   age_dog: 0,
   institution: "",
   sex_dog: "",
-  pontuation : 0,
-  test_time: '00',
-}
+  pontuation: 0,
+  test_time: "00",
+};
 
 export function UpdateUserForm({ id }: { id: string }) {
   const router = useRouter();
@@ -61,7 +61,7 @@ export function UpdateUserForm({ id }: { id: string }) {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center text-black">
       <h1 className="mb-4 text-xl">Atualizar dados</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
