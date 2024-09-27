@@ -14,7 +14,6 @@ import type { CreateParticipantDialogProps, UserProps } from "@/lib/types";
 import type React from "react";
 import { useState, useRef } from "react";
 import { ChangeDogSex } from "./ChangeDogSex";
-
 import { useToast } from "@/hooks/use-toast";
 import ButtonSaving from "./ButtonSaving";
 

@@ -1,15 +1,14 @@
 "use client";
-import AddIcon from "@/components/icon/AddIcon";
+
 import ExitIcon from "@/components/icon/ExitIcon";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { signOut, useSession } from "next-auth/react";
+
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DogIcon from "../../icon/DogIcon";
 import HomeIcon from "../../icon/HomeIcon";
 import RankingIcon from "../../icon/RankingIcon";
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
 import Link from "next/link";
 import NavItem from "./NavItem";
