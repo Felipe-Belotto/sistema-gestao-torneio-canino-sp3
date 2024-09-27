@@ -8,7 +8,7 @@ export default function HomeSection() {
 
   if (!session) return null;
   return (
-    <section className="flex flex-col gap-14">
+    <section className="flex flex-col gap-14 mt-14">
       <h2 className="font-bold text-[24px]">
         3º TORNEIO DE CÃES DE POLÍCIA DO INTERIOR PAULISTA
       </h2>

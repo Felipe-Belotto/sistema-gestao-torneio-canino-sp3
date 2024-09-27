@@ -10,50 +10,32 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getUserById, updateUser } from "@/lib/prisma";
-import { UpdateParticipantDialogProps, UserProps } from "@/lib/types";
-import type React from "react";
-import { useEffect, useState } from "react";
-import { RadioSex } from './radio-sex';
-import { Loader2 } from "lucide-react"
-import { useRouter } from "next/navigation";
-
-const initialForm = {
-  name_conductor: "",
-  name_dog: "",
-  age_dog: 0,
-  institution: "",
-  sex_dog: "",
-  pontuation: 0,
-  test_time: '00',
-}
+import type { UpdateParticipantDialogProps, UserProps } from "@/lib/types";
+import React, { useEffect, useState } from "react";
+import { ChangeDogSex } from "./ChangeDogSex";
+import { Loader2 } from "lucide-react";
+import EditIcon from "../icon/EditIcon";
+import { useToast } from "@/hooks/use-toast";
+import ButtonSaving from "./ButtonSaving";
 
 export default function UpdateParticipantDialog({
-  isOpen,
-  onClose,
-  id
+  data,
+  onMutate,
 }: UpdateParticipantDialogProps) {
-  const [formData, setFormData] = useState<UserProps>(initialForm);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [formData, setFormData] = useState<UserProps>({
+    name_conductor: data.name_conductor,
+    name_dog: data.name_dog,
+    age_dog: data.age_dog,
+    institution: data.institution,
+    sex_dog: data.sex_dog,
+    pontuation: data.pontuation,
+    test_time: data.test_time,
+  });
   const [buttonLoading, setButtonLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    findUser(id);
-  }, [id]);
-
-  async function findUser(id: string): Promise<UserProps | null> {
-    try {
-      setIsLoading(true)
-      const user = await getUserById(id);
-      console.log(user);
-      setFormData(user ? user : initialForm);
-      return user;
-    } catch (error) {
-      console.error("Failed to find user:", error);
-      throw new Error("Failed to find user");
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const { toast } = useToast();
 
   const handleInputFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,35 +49,55 @@ export default function UpdateParticipantDialog({
     e.preventDefault();
     try {
       setButtonLoading(true);
-      await updateUser(id, formData);
-      onClose();
+      await updateUser(data.id, formData).then(() => {
+        onMutate();
+      });
+      handleOpenDialog();
+      toast({
+        title: "Usuário atualizado com sucesso",
+        description:
+          "Os dados do usuário foram atualizados e em alguns segundos serão exibidos na tabela.",
+        className: "bg-[#5ac33a] text-white",
+      });
     } catch (error) {
       console.error("Falha ao editar usuario:", error);
       throw new Error("Falha ao editar usuario");
-    }
-    finally {
+    } finally {
       setButtonLoading(false);
     }
   };
 
+  const handleOpenDialog = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-[#02132f] text-primary">
-        <DialogHeader>
-          <DialogTitle className="text-secundary">
-            Editar Participante
-          </DialogTitle>
-          <DialogDescription className="text-primary">
-            Preencha as alterações do participante aqui e Clique em salvar
-          </DialogDescription>
-        </DialogHeader>
-        {
-          isLoading ? (<h4>Carregando...</h4>) : (
+    <>
+      <Button
+        onClick={handleOpenDialog}
+        className="text-white hover:text-secundary  bg-transparent hover:bg-transparent  py-2 px-4 rounded-md flex gap-4 items-center"
+        aria-label="Edit Participant"
+      >
+        <EditIcon />
+      </Button>
+      <Dialog open={isDialogOpen} onOpenChange={handleOpenDialog}>
+        <DialogContent className="sm:max-w-[425px] bg-[#02132f] text-primary">
+          <DialogHeader>
+            <DialogTitle className="text-secundary text-lg font-bold">
+              Editar Participante
+            </DialogTitle>
+            <DialogDescription className="text-primary text-base">
+              Preencha as alterações do participante aqui e Clique em salvar
+            </DialogDescription>
+          </DialogHeader>
+          {isLoading ? (
+            <h4>Carregando...</h4>
+          ) : (
             <form onSubmit={handleSubmit}>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="name_conductor" className="text-right">
-                    Nome do condutor
+                    Condutor
                   </Label>
                   <Input
                     type="text"
@@ -126,7 +128,6 @@ export default function UpdateParticipantDialog({
                     Idade
                   </Label>
                   <Input
-                    type="number"
                     id="age_dog"
                     name="age_dog"
                     value={formData.age_dog}
@@ -149,35 +150,23 @@ export default function UpdateParticipantDialog({
                     className="col-span-3 bg-[#02132f] text-primary border-gray-600"
                   />
                 </div>
-                <RadioSex handleChange={handleInputFormChange} sex_dog={formData.sex_dog} />
-
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="sex_dog" className="text-right">
+                    Sexo do Cão
+                  </Label>
+                  <ChangeDogSex
+                    handleChange={handleInputFormChange}
+                    sex_dog={formData.sex_dog}
+                  />
+                </div>
               </div>
               <DialogFooter className="flex w-full">
-                <Button
-                  disabled={buttonLoading}
-                  type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-primary"
-                >
-                  {
-                    buttonLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Salvando
-                      </>
-                    ) :
-                      (
-                        <>
-                          Salvar participante
-                        </>
-                      )
-                  }
-                </Button>
-
+                <ButtonSaving buttonLoading={buttonLoading} />
               </DialogFooter>
             </form>
-          )
-        }
-      </DialogContent>
-    </Dialog>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

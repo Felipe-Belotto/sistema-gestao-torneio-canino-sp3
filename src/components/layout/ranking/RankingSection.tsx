@@ -1,43 +1,23 @@
 "use client";
-import DeleteIcon from "@/components/icon/DeleteIcon";
-import EditIcon from "@/components/icon/EditIcon";
-import ExamIcon from "@/components/icon/ExamIcon";
 import { useBreakpoint } from "@/hook/useBreakpoint";
-import { getAllUsers } from "@/lib/prisma";
-import type { User } from "@prisma/client";
+import { useUsers } from "@/hook/useUsers";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 export default function RankingSection() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
+  const { users, error } = useUsers();
   const breakpoint = useBreakpoint();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersData = await getAllUsers();
-        setUsers(usersData);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(`An error occurred while fetching data: ${error.message}`);
-        } else {
-          setError("An unknown error occurred.");
-        }
-        console.error(error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const sortedUsers = useMemo(() => {
+    return [...users].sort((a, b) => b.pontuation - a.pontuation);
+  }, [users]);
 
   if (users.length === 0) {
     return <p className="text-center">Loading...</p>;
   }
 
   return (
-    <div className="p-5 bg-white rounded-lg">
+    <div className="p-5 bg-white rounded-lg mt-14">
       {error ? (
         <p className="text-red-600 text-center">{error}</p>
       ) : (
@@ -50,7 +30,8 @@ export default function RankingSection() {
             <caption className="sr-only">Ranking Data</caption>
             <thead>
               <tr className="bg-primary text-white uppercase text-sm">
-                <th className="text-left px-8 py-3 rounded-tl-md">Pontuação</th>
+                <th className="text-left px-4 py-3 rounded-tl-md">Colocação</th>
+                <th className="text-left px-1 py-3 ">Pontuação</th>
                 <th className="text-left px-8 py-3">Tempo</th>
                 {breakpoint === "desktop" && (
                   <>
@@ -59,16 +40,17 @@ export default function RankingSection() {
                   </>
                 )}
                 <th className="text-left px-8 py-3">Nome</th>
-                <th className="text-left px-8 py-3">Idade</th>
+                <th className="text-left px-4 py-3">Idade</th>
                 <th className="text-left px-8 py-3 rounded-tr-md">Sexo</th>
               </tr>
             </thead>
             <tbody className="h-full">
-              {users.map((user) => (
+              {sortedUsers.map((user, index) => (
                 <tr
                   key={user.id}
                   className="hover:bg-gray-100 text-base max-h-12"
                 >
+                  <TableTd text={index + 1} />
                   <TableTd text={user.pontuation} />
                   <TableTd text={user.test_time} />
                   {breakpoint === "desktop" && (

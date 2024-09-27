@@ -1,75 +1,29 @@
 "use client";
-<<<<<<< Updated upstream
 import type React from "react";
-import { useEffect, useState } from "react";
-import { getAllUsers } from "@/lib/prisma";
-import type { User } from "@prisma/client";
-import DeleteIcon from "@/components/icon/DeleteIcon";
-import EditIcon from "@/components/icon/EditIcon";
-import ExamParticipant from "@/components/form/ExamParticipant";
-import ExamIcon from "@/components/icon/ExamIcon";
-=======
 import UpdateParticipantDialog from "@/components/form/UpdateParticipantDialog";
-import DeleteIcon from "@/components/icon/DeleteIcon";
-import EditIcon from "@/components/icon/EditIcon";
-import ExamIcon from "@/components/icon/ExamIcon";
-import { getAllUsers } from "@/lib/prisma";
-import type { User } from "@prisma/client";
-import { id } from "date-fns/locale";
-import React, { useEffect, useState } from "react";
->>>>>>> Stashed changes
+
+import { useMemo, useState } from "react";
+import { useUsers } from "@/hook/useUsers";
+import ExamParticipantDialog from "@/components/form/ExamParticipantDialog";
+import DeleteParticipantDialog from "@/components/form/DeleteParticipantDialog";
 
 export default function ParticipantsSection() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState<string | null>(null);
-<<<<<<< Updated upstream
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-=======
-  const [idDialogOpner, setIdDialogOpener] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
->>>>>>> Stashed changes
+  const [isExamDialogOpen, setIsExamDialogOpen] = useState(false);
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { users, error, fetchUsers } = useUsers();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setIsLoading(true);
-        const usersData = await getAllUsers();
-        setUsers(usersData);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(`An error occurred while fetching data: ${error.message}`);
-        } else {
-          setError("An unknown error occurred.");
-        }
-        console.error(error);
-      }finally{
-        setIsLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-<<<<<<< Updated upstream
-  const handleEditClick = (user: User) => {
-    setSelectedUser(user);
-    setIsDialogOpen(true);
-  };
+  const sortedUsers = useMemo(() => {
+    return [...users].sort((a, b) => b.pontuation - a.pontuation);
+  }, [users]);
 
   if (users.length === 0) {
     return <p className="text-center">Loading...</p>;
-=======
-  function editDialog(id: string) {
-    setIdDialogOpener(id)
-    setIsDialogOpen(true)
->>>>>>> Stashed changes
   }
 
   return (
-    <div className="p-5 bg-white rounded-lg">
-      {isLoading ? (<h4>Carregando...</h4>) :  error ?  (
+    <div className="p-5 bg-white rounded-lg mt-14">
+      {error ? (
         <p className="text-red-600 text-center">{error}</p>
       ) : (
         <>
@@ -81,9 +35,7 @@ export default function ParticipantsSection() {
             <caption className="sr-only">Ranking Data</caption>
             <thead>
               <tr className="bg-primary text-white uppercase text-sm">
-                <th className="text-left px-8 py-3  rounded-tl-md">
-                  Pontuação
-                </th>
+                <th className="text-left px-8 py-3 rounded-tl-md">Pontuação</th>
                 <th className="text-left px-8 py-3">Tempo</th>
                 <th className="text-left px-8 py-3">Instituição</th>
                 <th className="text-left px-8 py-3">Condutor</th>
@@ -95,7 +47,7 @@ export default function ParticipantsSection() {
               </tr>
             </thead>
             <tbody className="h-full">
-              {users.map((user) => (
+              {sortedUsers.map((user) => (
                 <tr
                   key={user.id}
                   className="hover:bg-gray-100 text-base max-h-12"
@@ -108,86 +60,36 @@ export default function ParticipantsSection() {
                   <TableTd text={user.age_dog} />
                   <TableTd text={user.sex_dog} />
                   <TableTd>
-                    <button
-                      onClick={() => handleEditClick(user)}
-                      className="text-white hover:text-secundary bg-tertiary py-2 px-4 rounded-md flex gap-4 items-center"
-                      aria-label="Edit Score and Time"
-                    >
-                      Avaliar <ExamIcon />
-                    </button>
-<<<<<<< Updated upstream
+                    <ExamParticipantDialog
+                      isOpen={isExamDialogOpen}
+                      onClose={() => setIsExamDialogOpen(false)}
+                      data={user}
+                      key={user.id}
+                    />
                   </TableTd>
+
                   <TableTd>
-                    <div className="flex opacity-80 hover:opacity-100">
-                      <button
-                        onClick={() => console.log("edit")}
-                        className="text-yellow-500 hover:text-yellow-700 mx-6"
-                        aria-label="Edit"
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
-                        onClick={() => console.log("delete")}
-                        className="text-red-500 hover:text-red-700"
-                        aria-label="Delete"
-                      >
-                        <DeleteIcon />
-                      </button>
+                    <div className="flex gap-2">
+                      <UpdateParticipantDialog
+                        isOpen={isUpdateDialogOpen}
+                        onClose={() => setIsUpdateDialogOpen(false)}
+                        data={user}
+                        onMutate={fetchUsers}
+                      />
+                      <DeleteParticipantDialog
+                        isOpen={isDeleteDialogOpen}
+                        onClose={() => setIsDeleteDialogOpen(false)}
+                        data={user}
+                        onMutate={fetchUsers}
+                      />
                     </div>
                   </TableTd>
-=======
-                  </td>
-                  <td className="text-left px-8 py-3 border-b border-gray-200  ">
-                    <button
-                      onClick={() => editDialog(user.id)}
-                      className="text-yellow-500 hover:text-yellow-700 mx-6"
-                      aria-label="Edit"
-                    >
-                      <EditIcon />
-                    </button>
-
-                    <button
-                      onClick={() => console.log("delete")}
-                      className="text-red-500 hover:text-red-700"
-                      aria-label="Delete"
-                    >
-                      <DeleteIcon />
-                    </button>
-                  </td>
->>>>>>> Stashed changes
                 </tr>
               ))}
             </tbody>
           </table>
         </>
       )}
-<<<<<<< Updated upstream
-      {selectedUser && (
-        <ExamParticipant
-          isOpen={isDialogOpen}
-          onClose={() => {
-            setIsDialogOpen(false);
-            setSelectedUser(null);
-          }}
-          initialData={{
-            id: selectedUser.id,
-            pontuation: selectedUser.pontuation,
-            test_time: selectedUser.test_time,
-            institution: selectedUser.institution,
-            name_conductor: selectedUser.name_conductor,
-            name_dog: selectedUser.name_dog,
-            age_dog: selectedUser.age_dog,
-            sex_dog: selectedUser.sex_dog,
-          }}
-        />
-      )}
-=======
-      <UpdateParticipantDialog
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        id={idDialogOpner}
-      />
->>>>>>> Stashed changes
     </div>
   );
 }
@@ -199,8 +101,8 @@ type TableTdProps = {
 
 const TableTd = ({ text, children }: TableTdProps) => {
   return (
-    <td className="text-left px-8 py-3 border-b border-gray-200 ">
-      {text}
+    <td className="text-left px-8 py-3 border-b border-gray-200">
+      {text && <span>{text}</span>}
       {children}
     </td>
   );

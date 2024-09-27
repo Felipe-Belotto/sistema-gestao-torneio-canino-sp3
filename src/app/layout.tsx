@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import Sidebar from "@/components/layout/sidebar/Sidebar";
+import dynamic from "next/dynamic";
+import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+
+// Carregamento dinâmico do Sidebar para evitar problemas de SSR
+const DynamicSidebar = dynamic(
+  () => import("@/components/layout/sidebar/Sidebar"),
+  {
+    ssr: false,
+  }
+);
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,14 +31,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <Providers>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex max-h-screen overflow-hidden text-primary w-full h-full`}
-        >
-          <Sidebar />
-          {children}
-        </body>
-      </Providers>
+      <body
+        className={`${inter.variable} font-sans antialiased flex max-h-screen overflow-hidden text-primary w-full h-full`}
+      >
+        <Providers>
+          <Suspense fallback={<div>Loading...</div>}>
+            <DynamicSidebar />
+            <main className="flex-grow overflow-auto">{children}</main>
+          </Suspense>
+          <Toaster />
+        </Providers>
+      </body>
     </html>
   );
 }
