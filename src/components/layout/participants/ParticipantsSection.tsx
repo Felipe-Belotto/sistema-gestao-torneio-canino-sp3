@@ -18,25 +18,9 @@ export default function ParticipantsSection() {
   const { users, error, fetchUsers } = useUsers();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { isAdmin, loading } = useAdmin();
-
   const sortedUsers = useMemo(() => {
     return [...users].sort((a, b) => b.pontuation - a.pontuation);
   }, [users]);
-
-  if (users.length === 0) {
-    return <p className="text-center">Loading...</p>;
-  }
-
-  if (!isAdmin) {
-    return loading ? (
-      <p className="text-center">Verificando permissão de administrador...</p>
-    ) : (
-      <p className="text-center">
-        Você não tem permissão para acessar essa página
-      </p>
-    );
-  }
 
   return (
     <div className="p-5 bg-white rounded-lg mt-14">

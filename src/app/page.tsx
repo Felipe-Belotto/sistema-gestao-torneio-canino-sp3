@@ -12,13 +12,10 @@ export default function Home() {
   const searchParams = useSearchParams();
   const active = searchParams.get("active");
 
-  const { data: session } = useSession();
   const router = useRouter();
   useEffect(() => {
     router.push(`?active=Inicio`);
   }, []);
-
-  if (!session) return <SignInComponent />;
 
   return (
     <main className="w-full flex justify-center text-black text-2xl font-bold">
