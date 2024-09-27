@@ -1,6 +1,7 @@
 "use client";
 import { useBreakpoint } from "@/hook/useBreakpoint";
 import { useUsers } from "@/hook/useUsers";
+import Link from "next/link";
 import type React from "react";
 import { useMemo } from "react";
 
@@ -37,10 +38,14 @@ export default function RankingSection() {
                     <th className="text-left px-4 py-3 rounded-tl-md">
                       Colocação
                     </th>
-                    <th className="text-left px-8 py-3">Nome</th>
                     <th className="text-left px-1 py-3">Pontuação</th>
+                    <th className="text-left px-8 py-3">Nome</th>
+                    <th className="text-left px-8 py-3">Condutor</th>
                     <th className="text-left px-8 py-3">Tempo</th>
-                    <th className="text-left px-4 py-3 rounded-tr-md">Idade</th>
+                    <th className="text-left px-4 py-3">Idade</th>
+                    <th className="text-left px-4 py-3 rounded-tr-md">
+                      Súmula
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="h-full">
@@ -50,10 +55,20 @@ export default function RankingSection() {
                       className="hover:bg-gray-100 text-base max-h-12"
                     >
                       <TableTd text={index + 1} />
-                      <TableTd text={user.name_dog} />
                       <TableTd text={user.pontuation} />
+                      <TableTd text={user.name_dog} />
+                      <TableTd text={user.name_conductor} />
                       <TableTd text={user.test_time} />
                       <TableTd text={user.age_dog} />
+                      <TableTd>
+                        <Link
+                          href={user.fileURL || ""}
+                          className="p-2 bg-primary text-white text-center rounded-md"
+                          target="_blank"
+                        >
+                          Ver Súmula
+                        </Link>
+                      </TableTd>
                     </tr>
                   ))}
                 </tbody>
@@ -85,6 +100,13 @@ export default function RankingSection() {
                     <div className="flex justify-between">
                       <li>Instituição: {user.institution}</li>
                     </div>
+                    <Link
+                      href={user.fileURL || ""}
+                      className="p-4 bg-primary text-center rounded-md"
+                      target="_blank"
+                    >
+                      Sumula
+                    </Link>
                   </ul>
                 </div>
               ))}

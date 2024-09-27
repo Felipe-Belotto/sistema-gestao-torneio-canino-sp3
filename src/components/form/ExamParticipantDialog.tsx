@@ -42,6 +42,7 @@ export default function ExamParticipantDialog({ data }: ExamParticipantProps) {
     name_dog: data.name_dog,
     age_dog: data.age_dog,
     sex_dog: data.sex_dog,
+    fileURL: data.fileURL,
   });
 
   const [minutes, setMinutes] = useState(() => {

@@ -9,6 +9,7 @@ export interface UserProps {
   sex_dog: string;
   test_time: string;
   pontuation: number;
+  fileURL: string;
 }
 
 export interface CreateParticipantDialogProps {

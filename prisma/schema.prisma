@@ -1,27 +1,27 @@
-datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") 
-  directUrl = env("POSTGRES_URL_NON_POOLING") 
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
 model User {
-    id             String   @id @default(uuid()) 
-    institution    String   
-    name_conductor String   
-    name_dog       String  
-    age_dog        Int      
-    sex_dog       String
-    test_time     String
-    pontuation    Int    
+  id             String @id @default(uuid())
+  institution    String
+  name_conductor String
+  name_dog       String
+  age_dog        Int
+  sex_dog        String
+  pontuation     Int
+  test_time      String
+  fileURL        String
 }
 
 model Admin {
-    id      String   @id @default(uuid()) 
-    name    String  
-    email   String 
+  id    String @id @default(uuid())
+  name  String
+  email String
 }
-

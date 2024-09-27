@@ -11,11 +11,6 @@ export const useUsers = () => {
       const usersData = await getAllUsers();
       setUsers(usersData);
     } catch (error) {
-      if (error instanceof Error) {
-        setError(`An error occurred while fetching data: ${error.message}`);
-      } else {
-        setError("An unknown error occurred.");
-      }
       console.error(error);
     }
   };
