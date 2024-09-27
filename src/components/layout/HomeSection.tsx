@@ -1,13 +1,27 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useBreakpoint } from "@/hook/useBreakpoint";
 
 export default function HomeSection() {
+  const breakpoint = useBreakpoint();
   return (
-    <section className="flex flex-col gap-14 my-14 px-6">
-      <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl text-center ">
-        3º TORNEIO DE CÃES DE POLÍCIA DO INTERIOR PAULISTA
-      </h2>
+    <section className="flex flex-col gap-14 mt-14  mb-24 px-6 items-center">
+      {breakpoint === "mobile" && (
+        <Image
+          src={"/images/logo.png"}
+          width={300}
+          height={300}
+          alt="imagem do logo"
+          className="w-[250px] h-[150px] "
+        />
+      )}
+      {breakpoint === "desktop" && (
+        <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl text-center ">
+          3º TORNEIO DE CÃES DE POLÍCIA DO INTERIOR PAULISTA
+        </h2>
+      )}
+
       <Image
         src={"/images/banner.png"}
         width={1130}

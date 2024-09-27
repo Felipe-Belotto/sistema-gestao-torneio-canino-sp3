@@ -10,7 +10,7 @@ import DogIcon from "../icon/DogIcon";
 import NavItem from "./sidebar/NavItem";
 import { useBreakpoint } from "@/hook/useBreakpoint";
 
-export default function Header() {
+export default function HeaderDesktop() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const breakpoint = useBreakpoint();
 
@@ -25,10 +25,10 @@ export default function Header() {
     };
   }, []);
 
-  if (breakpoint === "desktop" || breakpoint === "small-laptop") return null;
+  if (breakpoint === "mobile" || breakpoint === "tablet") return null;
 
   return (
-    <header className="bg-primary flex items-center justify-around p-4 shadow-md h-[70px] fixed w-full bottom-0 ">
+    <header className="bg-primary flex items-center justify-around p-4 shadow-md h-[70px] ">
       {breakpoint === "desktop" && (
         <Link
           href={"/?active=Participantes"}
@@ -39,6 +39,17 @@ export default function Header() {
               {format(currentTime, "HH:mm:ss", { locale: ptBR })}
             </span>
           )}
+        </Link>
+      )}
+      {breakpoint === "mobile" && (
+        <Link href={"/?active=Inicio"} className="p-4">
+          <Image
+            src={"/images/logo.png"}
+            alt="logo do evento"
+            width={150}
+            height={100}
+            className="mr-6 "
+          />
         </Link>
       )}
 

@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import Header from "@/components/layout/Header";
+import HeaderDesktop from "@/components/layout/HeaderDesktop";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,8 +39,9 @@ export default function RootLayout({
         <Providers>
           <Suspense fallback={<div>Loading...</div>}>
             <DynamicSidebar />
-            <Header />
+            <HeaderDesktop />
             <main className="flex-grow overflow-auto">{children}</main>
+            <Header />
           </Suspense>
           <Toaster />
         </Providers>

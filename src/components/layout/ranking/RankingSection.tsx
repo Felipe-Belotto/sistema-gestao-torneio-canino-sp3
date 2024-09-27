@@ -13,7 +13,7 @@ export default function RankingSection() {
   }, [users]);
 
   if (users.length === 0) {
-    return <p className="text-center">Loading...</p>;
+    return <p className="text-center mt-14">Loading...</p>;
   }
 
   return (
@@ -27,7 +27,7 @@ export default function RankingSection() {
             <p className="lg:text-[48px] text-white">Faro de drogas</p>
           </div>
 
-          <div className="flex flex-col mt-14">
+          <div className="flex flex-col mt-7 lg:mt-14">
             {/* Table for desktop */}
             <div className="hidden lg:block">
               <table className="2xl:w-[1130px] mx-auto shadow-md rounded-lg mt-14">
@@ -65,12 +65,12 @@ export default function RankingSection() {
               {sortedUsers.map((user, index) => (
                 <div
                   key={user.id}
-                  className="bg-primary text-white rounded-lg p-4 shadow-md"
+                  className="bg-tertiary text-white rounded-lg p-4 shadow-md"
                 >
                   <p className="text-lg font-bold">
                     {index + 1} - {user.name_dog}
                   </p>
-                  <ul className="list-disc pl-4 mt-2 space-y-1 text-sm">
+                  <ul className="list-disc pl-4 mt-2 flex flex-col gap-4 text-sm">
                     <div className="flex justify-between">
                       <li>Pontuação: {user.pontuation}</li>
                       <li>Tempo: {user.test_time}</li>
@@ -78,6 +78,9 @@ export default function RankingSection() {
                     <div className="flex justify-between">
                       <li>Idade: {user.age_dog}</li>
                       <li>Condutor: {user.name_conductor}</li>
+                    </div>
+                    <div className="flex justify-between">
+                      <li>Instituição: {user.institution}</li>
                     </div>
                   </ul>
                 </div>
