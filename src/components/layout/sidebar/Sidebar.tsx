@@ -21,10 +21,8 @@ import { useAdmin } from "@/hook/useAdmin";
 export default function Sidebar() {
   const { data: session } = useSession();
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { fetchUsers } = useUsers();
+
   const breakpoint = useBreakpoint();
-  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     setCurrentTime(new Date());
@@ -69,14 +67,7 @@ export default function Sidebar() {
           <div className="flex flex-col gap-2">
             <NavItem icon={<HomeIcon />} title="Inicio" />
             <NavItem icon={<RankingIcon />} title="Ranking" />
-            {isAdmin && <NavItem icon={<DogIcon />} title="Participantes" />}
-
-            <hr className="w-full h-[1px] opacity-50" />
-            {isAdmin && (
-              <button onClick={() => setIsDialogOpen(true)}>
-                <NavItem icon={<AddIcon />} title="Criar participante" />
-              </button>
-            )}
+            {<NavItem icon={<DogIcon />} title="Participantes" />}
           </div>
         </div>
 
@@ -92,12 +83,6 @@ export default function Sidebar() {
             <NavItem icon={<ExitIcon />} title="Sair" />
           </button>
         </div>
-
-        <CreateParticipantDialog
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
-          onMutate={fetchUsers}
-        />
       </nav>
     );
   };
