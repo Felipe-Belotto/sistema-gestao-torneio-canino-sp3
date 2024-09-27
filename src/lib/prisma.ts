@@ -32,7 +32,7 @@ export async function deleteUser(id: string) {
 export async function getAllUsers() {
   try {
     const users = await prisma.user.findMany();
-    console.log(users);
+
     return users;
   } catch (error) {
     throw new Error("Não foi possível encontrar todos os usuários.");
