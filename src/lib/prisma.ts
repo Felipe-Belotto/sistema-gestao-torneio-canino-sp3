@@ -1,8 +1,7 @@
 "use server";
 
-import { type Prisma, PrismaClient } from "@prisma/client";
+import { Admin, type Prisma, PrismaClient } from "@prisma/client";
 import type { UserProps } from "./types";
-import { te } from "date-fns/locale";
 const prisma = new PrismaClient();
 
 export async function createUser({
@@ -12,7 +11,7 @@ export async function createUser({
   institution,
   sex_dog,
   pontuation,
-  test_time
+  test_time,
 }: UserProps) {
   const user = await prisma.user.create({
     data: {
@@ -69,6 +68,28 @@ export async function updateUser(id: string, data: UserProps) {
     return updatedUser;
   } catch (error) {
     throw new Error("Não foi possível atualizar o usuário.");
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function getAdminByEmail(email: string) {
+  try {
+    const admin = await prisma.admin.findFirst({
+      where: { email },
+    });
+
+    console.log("Admin query result:", admin); // Log the raw result
+
+    if (admin) {
+      return true; // Return true if admin is found
+      // biome-ignore lint/style/noUselessElse: <explanation>
+    } else {
+      return false; // Return false if no admin is found
+    }
+  } catch (error) {
+    console.error("Error in getAdminByEmail:", error);
+    return false; // Return false on error
   } finally {
     await prisma.$disconnect();
   }

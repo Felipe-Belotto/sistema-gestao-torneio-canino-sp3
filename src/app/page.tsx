@@ -1,27 +1,38 @@
 "use client";
-
-import SignInComponent from "@/components/layout/SignInComponent";
+import { useRouter, useSearchParams } from "next/navigation";
 import HomeSection from "@/components/layout/home/HomeSection";
 import ParticipantsSection from "@/components/layout/participants/ParticipantsSection";
-
 import RankingSection from "@/components/layout/ranking/RankingSection";
+import { useAdmin } from "@/hook/useAdmin";
+import SignInComponent from "@/components/layout/SignInComponent";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const searchParams = useSearchParams();
   const active = searchParams.get("active");
+  const { isAdmin, loading } = useAdmin();
   const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    router.push(`?active=Inicio`);
+  }, []);
 
-  if (!session) {
-    return <SignInComponent />;
+  if (!session) return <SignInComponent />;
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <main className="w-full flex justify-center items-center text-black text-2xl font-bold">
+    <main className="w-full flex justify-center text-black text-2xl font-bold">
       {active === "Inicio" && <HomeSection />}
       {active === "Ranking" && <RankingSection />}
-      {active === "Participantes" && <ParticipantsSection />}
+      {active === "Participantes" && isAdmin && <ParticipantsSection />}
     </main>
   );
 }
