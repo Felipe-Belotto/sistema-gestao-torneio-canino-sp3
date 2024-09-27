@@ -1,14 +1,18 @@
-import React from 'react'
-import { UserProps } from '@/lib/types'
+import { UserProps } from "@/lib/types";
+import type React from "react";
 
 interface RadioSexProps {
   sex_dog: string;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const RadioSex: React.FC<RadioSexProps> = ({sex_dog , handleChange}) => {
+export const RadioSex: React.FC<RadioSexProps> = ({
+  sex_dog,
+  handleChange,
+}) => {
   return (
     <div className="flex gap-2 flex-col">
+      {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
       <label>Sexo do Cachorro:</label>
       <div className="flex items-center gap-4">
         <label htmlFor="macho">
@@ -38,5 +42,5 @@ export const RadioSex: React.FC<RadioSexProps> = ({sex_dog , handleChange}) => {
         </label>
       </div>
     </div>
-  )
-}
+  );
+};
