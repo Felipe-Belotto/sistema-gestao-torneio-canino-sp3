@@ -1,10 +1,11 @@
-import CreateUserForm from '@/components/create-user'
+
+import CreateUserForm from '@/components/create-user-form/create-user'
 import React from 'react'
 
 function page() {
   return (
     <div className='flex flex-col '>
-      <CreateUserForm/>
+      <CreateUserForm />
     </div>
   )
 }

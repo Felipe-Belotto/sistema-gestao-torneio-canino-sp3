@@ -1,5 +1,5 @@
 'use client'
-import { createUser } from '@/lib/prisma';
+import { createUser, getAllUsers, getUserById } from '@/lib/prisma';
 import { UserProps } from '@/lib/types';
 import React, { useState } from 'react'
 import { RadioSex } from './radio-sex';
@@ -10,10 +10,9 @@ function CreateUserForm() {
     name_conductor: '',
     name_dog: '',
     age_dog: 0,
-    instituition: '',
+    institution: '',
     sex_dog: ''
   });
-
 
   const handleInputFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,25 +22,23 @@ function CreateUserForm() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      createUser(formData)
-      console.log(formData);
+      await createUser(formData)
       setFormData({
         name_conductor: '',
         name_dog: '',
         age_dog: 0,
-        instituition: '',
+        institution: '',
         sex_dog: ''
       })
+    
     } catch (error) {
       throw new Error('Failed to create user')
     }
   };
-
- 
 
   return (
     <div className='w-full flex flex-col  items-center'>
@@ -49,12 +46,12 @@ function CreateUserForm() {
       
       <form onSubmit={handleSubmit} className='flex flex-col gap-2 '>
       <div className='flex flex-col gap-2'>
-          <label htmlFor="instituition">Instituição/Cidade</label>
+          <label htmlFor="institution">Instituição/Cidade</label>
           <input
             type="text"
-            id="instituition"
-            name="instituition"
-            value={formData.instituition}
+            id="institution"
+            name="institution"
+            value={formData.institution}
             onChange={handleInputFormChange}
             required
             className='outline rounded-lg px-4'
@@ -100,7 +97,9 @@ function CreateUserForm() {
         <RadioSex sex_dog={formData.sex_dog} handleChange={handleInputFormChange} />
 
         <button type="submit" className='p-4 py-2 rounded-lg bg-green-400 w-60'>Criar Usuário</button>
+        
       </form>
+      <button onClick={() => getAllUsers() } className='p-4 py-2 rounded-lg bg-blue-400 w-60 mt-8'>Buscar usuarios</button>
     </div>
   )
 }
