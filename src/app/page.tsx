@@ -9,7 +9,6 @@ import ParticipantsSection from "@/components/layout/participants/ParticipantsSe
 export default function Home() {
   const searchParams = useSearchParams();
   const active = searchParams.get("active");
-
   const router = useRouter();
   useEffect(() => {
     router.push(`?active=Inicio`);

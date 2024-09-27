@@ -4,9 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 export default function HomeSection() {
-  const { data: session } = useSession();
-
-  if (!session) return null;
   return (
     <section className="flex flex-col gap-14 mt-14">
       <h2 className="font-bold text-[24px]">
