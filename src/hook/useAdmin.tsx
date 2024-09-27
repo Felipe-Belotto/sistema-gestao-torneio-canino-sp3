@@ -1,4 +1,4 @@
-// hooks/useAdmin.js
+/* // hooks/useAdmin.js
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { getAdminByEmail } from "@/lib/prisma";
@@ -39,3 +39,4 @@ export function useAdmin() {
 
   return { isAdmin, loading };
 }
+ */

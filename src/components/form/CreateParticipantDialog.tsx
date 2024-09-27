@@ -14,10 +14,9 @@ import type { CreateParticipantDialogProps, UserProps } from "@/lib/types";
 import type React from "react";
 import { useState, useRef } from "react";
 import { ChangeDogSex } from "./ChangeDogSex";
-import { Loader2 } from "lucide-react";
+
 import { useToast } from "@/hooks/use-toast";
 import ButtonSaving from "./ButtonSaving";
-import { useAdmin } from "@/hook/useAdmin";
 
 const initialForm = {
   name_conductor: "",

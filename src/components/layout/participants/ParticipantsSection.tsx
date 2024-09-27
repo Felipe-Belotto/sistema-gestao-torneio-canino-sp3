@@ -6,10 +6,9 @@ import { useMemo, useState } from "react";
 import { useUsers } from "@/hook/useUsers";
 import ExamParticipantDialog from "@/components/form/ExamParticipantDialog";
 import DeleteParticipantDialog from "@/components/form/DeleteParticipantDialog";
-import { useAdmin } from "@/hook/useAdmin";
+
 import AddIcon from "@/components/icon/AddIcon";
 import CreateParticipantDialog from "@/components/form/CreateParticipantDialog";
-import { Button } from "@/components/ui/button";
 
 export default function ParticipantsSection() {
   const [isExamDialogOpen, setIsExamDialogOpen] = useState(false);
