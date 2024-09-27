@@ -1,6 +1,6 @@
 "use server";
 
-import { Admin, type Prisma, PrismaClient } from "@prisma/client";
+import { Admin, type Prisma, PrismaClient, User } from "@prisma/client";
 import type { UserProps } from "./types";
 const prisma = new PrismaClient();
 
@@ -12,7 +12,8 @@ export async function createUser({
   sex_dog,
   pontuation,
   test_time,
-}: UserProps) {
+  fileURL,
+}: User) {
   const user = await prisma.user.create({
     data: {
       institution: institution,
@@ -22,6 +23,7 @@ export async function createUser({
       sex_dog: sex_dog,
       test_time: test_time,
       pontuation: pontuation,
+      fileURL: fileURL,
     },
   });
   await prisma.$disconnect();

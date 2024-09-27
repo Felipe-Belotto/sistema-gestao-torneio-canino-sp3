@@ -17,13 +17,15 @@ import { Loader2 } from "lucide-react";
 import EditIcon from "../icon/EditIcon";
 import { useToast } from "@/hooks/use-toast";
 import ButtonSaving from "./ButtonSaving";
+import { User } from "@prisma/client";
 
 export default function UpdateParticipantDialog({
   data,
   onMutate,
 }: UpdateParticipantDialogProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [formData, setFormData] = useState<UserProps>({
+  const [formData, setFormData] = useState<User>({
+    id: data.id,
     name_conductor: data.name_conductor,
     name_dog: data.name_dog,
     age_dog: data.age_dog,
@@ -31,6 +33,7 @@ export default function UpdateParticipantDialog({
     sex_dog: data.sex_dog,
     pontuation: data.pontuation,
     test_time: data.test_time,
+    fileURL: data.fileURL,
   });
   const [buttonLoading, setButtonLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -136,6 +139,7 @@ export default function UpdateParticipantDialog({
                     className="col-span-3 bg-[#02132f] text-primary border-gray-600"
                   />
                 </div>
+
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="institution" className="text-right">
                     Instituição
@@ -147,6 +151,21 @@ export default function UpdateParticipantDialog({
                     value={formData.institution}
                     onChange={handleInputFormChange}
                     required
+                    className="col-span-3 bg-[#02132f] text-primary border-gray-600"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="institution" className="text-right">
+                    fileURL
+                  </Label>
+                  <Input
+                    type="text"
+                    id="fileURL"
+                    name="fileURL"
+                    value={formData.fileURL}
+                    onChange={handleInputFormChange}
+                    required
+                    placeholder="fileURL"
                     className="col-span-3 bg-[#02132f] text-primary border-gray-600"
                   />
                 </div>
