@@ -5,12 +5,33 @@ import Link from "next/link";
 import type React from "react";
 import { useMemo } from "react";
 
+// Função para converter o tempo no formato "00m 00s" para segundos
+const convertTimeToSeconds = (time: string) => {
+  const [minutes, seconds] = time.split(/[ms]/).map(Number);
+  return minutes * 60 + seconds;
+};
+
 export default function RankingSection() {
   const { users, error } = useUsers();
   const breakpoint = useBreakpoint();
 
   const sortedUsers = useMemo(() => {
-    return [...users].sort((a, b) => b.pontuation - a.pontuation);
+    return [...users].sort((a, b) => {
+      // Ordenar por pontuação (descrescente)
+      if (b.pontuation !== a.pontuation) {
+        return b.pontuation - a.pontuation;
+      }
+
+      // Ordenar por tempo (crescente)
+      const timeA = convertTimeToSeconds(a.test_time);
+      const timeB = convertTimeToSeconds(b.test_time);
+      if (timeA !== timeB) {
+        return timeA - timeB;
+      }
+
+      // Ordenar por idade (crescente)
+      return a.age_dog - b.age_dog;
+    });
   }, [users]);
 
   if (users.length === 0) {
