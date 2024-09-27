@@ -17,7 +17,7 @@ export default function RankingSection() {
   }
 
   return (
-    <div className="p-5 bg-white rounded-lg mt-14">
+    <div className="p-5 bg-white rounded-lg mt-14 mb-24 lg:mb-0">
       {error ? (
         <p className="text-red-600 text-center">{error}</p>
       ) : (
