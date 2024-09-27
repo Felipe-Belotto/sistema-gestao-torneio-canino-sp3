@@ -1,12 +1,10 @@
 "use client";
 import type React from "react";
 import UpdateParticipantDialog from "@/components/form/UpdateParticipantDialog";
-
 import { useMemo, useState } from "react";
 import { useUsers } from "@/hook/useUsers";
 import ExamParticipantDialog from "@/components/form/ExamParticipantDialog";
 import DeleteParticipantDialog from "@/components/form/DeleteParticipantDialog";
-
 import AddIcon from "@/components/icon/AddIcon";
 import CreateParticipantDialog from "@/components/form/CreateParticipantDialog";
 
@@ -27,26 +25,28 @@ export default function ParticipantsSection() {
         <p className="text-red-600 text-center">{error}</p>
       ) : (
         <>
-          <div className="bg-primary px-6 rounded-md flex justify-between items-center gap-3 flex-1 h-[100px]">
-            <h4 className="text-secundary text-[32px]">Participantes</h4>
-            <p className="text-[48px] text-white">Faro de drogas</p>
+          <div className="bg-primary px-6 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 flex-1 h-[100px]">
+            <h4 className="text-secundary text-2xl md:text-3xl">
+              Participantes
+            </h4>
+            <p className="text-4xl text-white">Faro de drogas</p>
           </div>
-          <div>
-            <table className="2xl:w-[1130px] mx-auto shadow-md rounded-lg mt-14">
+          <div className="overflow-x-auto">
+            <table className="mx-auto shadow-md rounded-lg mt-14 min-w-full">
               <caption className="sr-only">Ranking Data</caption>
               <thead>
-                <tr className="bg-primary text-white uppercase text-sm">
-                  <th className="text-left px-8 py-3 rounded-tl-md">
+                <tr className="bg-primary text-white uppercase text-xs md:text-sm">
+                  <th className="text-left px-4 py-2 rounded-tl-md">
                     Pontuação
                   </th>
-                  <th className="text-left px-8 py-3">Tempo</th>
-                  <th className="text-left px-8 py-3">Instituição</th>
-                  <th className="text-left px-8 py-3">Condutor</th>
-                  <th className="text-left px-8 py-3">Nome</th>
-                  <th className="text-left px-8 py-3">Idade</th>
-                  <th className="text-left px-8 py-3">Sexo</th>
-                  <th className="text-left px-8 py-3">Avaliação</th>
-                  <th className="text-left px-8 py-3 rounded-tr-md">Ações</th>
+                  <th className="text-left px-4 py-2">Tempo</th>
+                  <th className="text-left px-4 py-2">Instituição</th>
+                  <th className="text-left px-4 py-2">Condutor</th>
+                  <th className="text-left px-4 py-2">Nome</th>
+                  <th className="text-left px-4 py-2">Idade</th>
+                  <th className="text-left px-4 py-2">Sexo</th>
+                  <th className="text-left px-4 py-2">Avaliação</th>
+                  <th className="text-left px-4 py-2 rounded-tr-md">Ações</th>
                 </tr>
               </thead>
               <tbody className="h-full">
@@ -70,7 +70,6 @@ export default function ParticipantsSection() {
                         key={user.id}
                       />
                     </TableTd>
-
                     <TableTd>
                       <div className="flex gap-2">
                         <UpdateParticipantDialog
@@ -92,7 +91,7 @@ export default function ParticipantsSection() {
               </tbody>
             </table>
             <button
-              className="bg-tertiary flex items-center rounded-md px-8 py-2 text-[18px] text-white mt-14"
+              className="bg-tertiary flex items-center rounded-md px-6 py-2 text-lg text-white mt-14 mx-auto"
               onClick={() => setIsDialogOpen(true)}
             >
               <AddIcon /> Criar participante
@@ -116,7 +115,7 @@ type TableTdProps = {
 
 const TableTd = ({ text, children }: TableTdProps) => {
   return (
-    <td className="text-left px-8 py-3 border-b border-gray-200">
+    <td className="text-left px-4 py-2 border-b border-gray-200">
       {text && <span>{text}</span>}
       {children}
     </td>

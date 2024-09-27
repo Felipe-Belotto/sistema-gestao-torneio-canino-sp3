@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   const renderSideBar = () => {
     return (
-      <nav className="w-[262px] bg-primary h-screen py-6 pl-6 flex flex-col">
+      <nav className="w-[262px] hidden bg-primary h-screen py-6 pl-6 flex flex-col">
         <div className="flex-grow flex flex-col gap-14">
           <Link href={"/"}>
             <Image
