@@ -1,12 +1,12 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import HomeSection from "@/components/layout/home/HomeSection";
-import ParticipantsSection from "@/components/layout/participants/ParticipantsSection";
-import RankingSection from "@/components/layout/ranking/RankingSection";
 import { useAdmin } from "@/hook/useAdmin";
-import SignInComponent from "@/components/layout/SignInComponent";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import HomeSection from "@/components/layout/home/HomeSection";
+import RankingSection from "@/components/layout/ranking/RankingSection";
+import ParticipantsSection from "@/components/layout/participants/ParticipantsSection";
+import SignInComponent from "@/components/layout/SignInComponent";
 
 export default function Home() {
   const searchParams = useSearchParams();
