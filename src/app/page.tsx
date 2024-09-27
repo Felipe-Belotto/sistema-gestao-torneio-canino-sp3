@@ -1,5 +1,6 @@
 "use client";
-import SignInComponent from "@/auth/signIn";
+
+import SignInComponent from "@/components/layout/SignInComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
