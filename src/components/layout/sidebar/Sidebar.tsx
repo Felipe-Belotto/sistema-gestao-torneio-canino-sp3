@@ -11,15 +11,12 @@ import HomeIcon from "../../icon/HomeIcon";
 import RankingIcon from "../../icon/RankingIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
-import CreateParticipantDialog from "@/components/form/CreateParticipantDialog";
 import Link from "next/link";
 import NavItem from "./NavItem";
-import { useUsers } from "@/hook/useUsers";
+
 import { useBreakpoint } from "@/hook/useBreakpoint";
-import { useAdmin } from "@/hook/useAdmin";
 
 export default function Sidebar() {
-  const { data: session } = useSession();
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   const breakpoint = useBreakpoint();
@@ -34,8 +31,6 @@ export default function Sidebar() {
       clearInterval(timer);
     };
   }, []);
-
-  if (!session) return null;
 
   if (breakpoint === "mobile" || breakpoint === "tablet") return null;
 
@@ -53,15 +48,10 @@ export default function Sidebar() {
             />
           </Link>
           <div className="min-h-[27px]">
-            {session && (
-              <div className="w-full flex gap-3 pl-4">
-                <Avatar className="w-6 h-6">
-                  <AvatarImage src={session.user?.image || ""} />
-                  <AvatarFallback>DS</AvatarFallback>
-                </Avatar>
-                <span className="text-[18px]">{session.user?.name}</span>
-              </div>
-            )}
+            <div className="w-full flex gap-3 pl-4">
+              <div className="w-6 h-6 bg-gray-500/50 rounded-full" />
+              <span className="text-[18px]">Usuário</span>
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -77,7 +67,7 @@ export default function Sidebar() {
           </div>
           <button
             onClick={() => {
-              signOut();
+              alert("Sair");
             }}
           >
             <NavItem icon={<ExitIcon />} title="Sair" />
