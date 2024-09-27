@@ -3,7 +3,7 @@ import { getUserById, updateUser } from "@/lib/prisma";
 import type { UserProps } from "@/lib/types";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { RadioSex } from "../radio-sex";
+import { RadioSex } from "./radio-sex";
 
 const initialForm = {
   name_conductor: "",
@@ -11,7 +11,9 @@ const initialForm = {
   age_dog: 0,
   institution: "",
   sex_dog: "",
-};
+  pontuation : 0,
+  test_time: '00',
+}
 
 export function UpdateUserForm({ id }: { id: string }) {
   const router = useRouter();

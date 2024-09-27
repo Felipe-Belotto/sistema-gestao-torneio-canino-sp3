@@ -16,20 +16,22 @@ import { useState } from "react";
 import { RadioSex } from './radio-sex';
 import { Loader2 } from "lucide-react"
 
-
+const initialForm = {
+  name_conductor: "",
+  name_dog: "",
+  age_dog: 0,
+  institution: "",
+  sex_dog: "",
+  pontuation : 0,
+  test_time: '00',
+}
 
 export default function CreateParticipantDialog({
   isOpen,
   onClose,
 }: CreateParticipantDialogProps) {
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [formData, setFormData] = useState<UserProps>({
-    name_conductor: "",
-    name_dog: "",
-    age_dog: 0,
-    institution: "",
-    sex_dog: "",
-  });
+  const [formData, setFormData] = useState<UserProps>(initialForm);
 
   const handleInputFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,14 +47,7 @@ export default function CreateParticipantDialog({
     try {
       setButtonLoading(true)
       await createUser(formData);
-      setFormData({
-        name_conductor: "",
-        name_dog: "",
-        age_dog: 0,
-        institution: "",
-        sex_dog: "",
-
-      });
+      setFormData(initialForm);
     } catch (error) {
       throw new Error("Failed to create user");
     } finally {
