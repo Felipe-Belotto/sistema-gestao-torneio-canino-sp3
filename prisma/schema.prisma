@@ -15,7 +15,4 @@ model User {
     name_dog       String  
     age_dog        Int      
     sex_dog       String  
-    punctuation    Float?   
-    test_time      DateTime? 
-    loss_points    Json?
 }

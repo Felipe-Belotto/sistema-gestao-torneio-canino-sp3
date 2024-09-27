@@ -1,36 +1,22 @@
 "use client";
+
+import SignInComponent from "@/components/layout/SignInComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const active = searchParams.get("active");
   const { data: session } = useSession();
+
+  if (!session) {
+    return <SignInComponent />;
+  }
 
   console.log(session);
   return (
-    <main className="h-screen flex flex-col gap-14 justify-center items-center">
-      {session && (
-        <div className="flex flex-col gap-14 justify-center items-center">
-          <h1>Welcome {session?.user?.name}</h1>
-          <p>{session?.user?.email}</p>
-          <button
-            onClick={() => {
-              signOut();
-            }}
-            className="text-2xl text-white px-4 bg-red-800"
-          >
-            Logout
-          </button>
-        </div>
-      )}
-      {!session && (
-        <button
-          onClick={() => {
-            signIn("google");
-          }}
-          className="text-2xl text-white px-4 bg-green-800"
-        >
-          Login
-        </button>
-      )}
+    <main className="w-full flex justify-center items-center text-black text-2xl font-bold">
+      {active}
     </main>
   );
 }
