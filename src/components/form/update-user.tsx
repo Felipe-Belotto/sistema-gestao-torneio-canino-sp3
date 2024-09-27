@@ -3,7 +3,7 @@ import { getUserById, updateUser } from "@/lib/prisma";
 import type { UserProps } from "@/lib/types";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { RadioSex } from "../create-user-form/radio-sex";
+import { RadioSex } from "../radio-sex";
 
 const initialForm = {
   name_conductor: "",

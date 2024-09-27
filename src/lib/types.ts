@@ -6,3 +6,13 @@ export interface UserProps {
   age_dog: number,
   sex_dog: string,
 }
+
+export interface CreateParticipantDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface RadioSexProps {
+  sex_dog: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+}
